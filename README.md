@@ -29,7 +29,9 @@ of the file to provision all the required machines to get a cluster going.
 
 # Local Cluster Installation
 After getting all the nodes up and running, 
-you must install the container (Docker) runtime and kubeadm tools on each node.
+you must install the container (Docker) runtime and kubernetes tools on each node.
+
+Follow these next two sections to get Docker and Kubernetes installed on each of the nodes.
 
 ## Docker Installation
 This references a lot from the official site for [installing docker on CentOS 7](https://docs.docker.com/install/linux/docker-ce/centos/#install-using-the-repository)
@@ -127,7 +129,15 @@ I’ve noticed that something disables the bridge-nf-call-iptables kernel parame
 # swapoff -a &&  sed -i '/ swap / s/^/#/' /etc/fstab
 ```
 
-### Initialize Master
+## Initialize Master
+
+After installation is done on all the nodes with docker and 
+kubernetes packages, you can setup the master node.
+
+Go ahead and ssh into the master node
+```bash
+# vagrant ssh master
+```
 
 When initializing the master node, we supply two options so it binds to the 
 correct IP and creates a pod network for the right pod networking add on
@@ -136,7 +146,8 @@ correct IP and creates a pod network for the right pod networking add on
 # kubeadm init --apiserver-advertise-address [MASTER_NODE_IP] --pod-network-cidr=192.168.0.0/16
 ```
 
-> Sample output message after initialization
+Sample output message after initialization. Take note of the `kubeadm join` message
+since this is what you will run on each of your nodes to join the cluster.
 > 
 > Your Kubernetes control-plane has initialized successfully!
 > 
@@ -157,6 +168,9 @@ correct IP and creates a pod network for the right pod networking add on
 >
 
 ### Setup kubectl on master node
+Run the following command on your master node to control the cluster.
+You can also add this to your shell profile.
+
 ```bash
  # export KUBECONFIG=/etc/kubernetes/admin.conf
  ```
@@ -183,6 +197,15 @@ https://docs.projectcalico.org/v3.10/getting-started/kubernetes/
 ```bash
 # kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
+
+## Join Worker Nodes
+
+After master is initialized and the pod networking is setup, you can have
+each worker node join the cluster.
+
+Go ahead and ssh into each worker node and run the `kubadm join` command
+you copied from the initialization of the master node. Ensure the ip of
+the master node is correct and accessible to the worker nodes.
 
 ## Hosts setup
 These are just some steps to make it easier to navigate through your cluster. 
