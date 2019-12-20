@@ -184,6 +184,8 @@ The following two are ones that I used that worked somewhat on the machines I pr
 * Weave net 
 * Calico
 
+Run **only one of the following** commands on the master node to setup pod networking, either calico or weave.
+
 #### Calico
 Calico seemed to work better. 
 You have to make sure you initialize the master with the pod cidr block
