@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "master" do |node|
     node.vm.box = "centos/7"
     node.vm.hostname = "master"
-    node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+    node.vm.network "public_network", bridge: "en0: Wi-Fi (Wireless)"
 
     node.vm.provider "virtualbox" do |vb|
       vb.memory = 2048
@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "node1" do |node|
     node.vm.box = "centos/7"
     node.vm.hostname = "node1"
-    node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+    node.vm.network "public_network", bridge: "en0: Wi-Fi (Wireless)"
 
     node.vm.provider "virtualbox" do |vb|
       vb.memory = 2048
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "node2" do |node|
     node.vm.box = "centos/7"
     node.vm.hostname = "node2"
-    node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+    node.vm.network "public_network", bridge: "en0: Wi-Fi (Wireless)"
 
     node.vm.provider "virtualbox" do |vb|
       vb.memory = 2048

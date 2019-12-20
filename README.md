@@ -1,8 +1,36 @@
-Example of setting up a local environment with Kubernetes cluster
+Example of setting up a local environment with Kubernetes cluster.
+
+This requires you have [Vagrant](https://www.vagrantup.com/) installed on your computer.
+
+# Vagrant installation
+
+Follow the steps located on the [vagrant site](https://www.vagrantup.com/downloads.html) to get it up and running. 
+
+Once installed on your computer, modify the **Vagrantfile** in this repository:
+* update the `vm.network "public_network", bridge: "en0: [YOUR NETWORK INTERFACE]"` bridge value section in each vm configuration to your specific network interface
+* tweak the cpus and memory for your situation, defaults are fine also
+
+If you are unsure what the full name of network interface you should assign, 
+you can remove the value and it will prompt you `vagrant up`. 
+From there it will display the full name of the interface for you to select.
+
+
+Without specifying the network interface:
+```ruby
+node.vm.network "public_network"
+```
+
+After modifying the `Vagrantfile`, run the following command witin the same directory
+of the file to provision all the required machines to get a cluster going.
+
+```bash
+# vagrant up
+```
 
 # Local Cluster Installation
+After getting all the nodes up and running, 
+you must install the container (Docker) runtime and kubeadm tools on each node.
 
-Every node requires a container runtime
 ## Docker Installation
 This references a lot from the official site for [installing docker on CentOS 7](https://docs.docker.com/install/linux/docker-ce/centos/#install-using-the-repository)
 
