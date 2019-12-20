@@ -1,4 +1,4 @@
-Example of setting up a local environment with Kubernetes cluster.
+Example of setting up a local environment with Kubernetes cluster. Lots of the examples are from the book manning book [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action).
 
 This requires you have [Vagrant](https://www.vagrantup.com/) installed on your computer.
 
