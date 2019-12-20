@@ -237,3 +237,35 @@ Run the following command to copy the config file to the local kube folder
 # scp root@master:/etc/kubernetes/admin.conf ~/.kube/config
 ```
 
+# Troubleshooting
+## Networking
+Sometimes there are multiple interfaces on the worker node and joining can cause issues if it’s listening on the wrong interface
+
+**Solutions**
+
+1. Change the default route so it gets setup correctly when you join
+[Stackoverflow Reference](https://superuser.com/questions/1129799/centos-7-default-route-for-static-ip-on-two-interface)
+2. Another solution is to update the **kubeadm-flags.env** file and append the **node-ip** address of the worker node
+
+Open up the environment file:
+```bash
+# vi /var/lib/kubelet/kubeadm-flags.env
+```
+
+Append the **node-ip** at the end
+```
+KUBELET_KUBEADM_ARGS="--cgroup-driver=cgroupfs --network-plugin=cni --pod-infra-container-image=k8s.gcr.io/pause:3.1 --node-ip=NODE_IP"
+```
+
+Restart the kubelet service on the worker node and verify by following the system log
+
+```
+# systemctl restart kubelet && journalctl -f -u kubelet
+```
+
+Also verify on master node that the worker node is ready
+
+```
+# kubectl get nodes
+# kubectl get pods --all-namespaces
+```
