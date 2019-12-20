@@ -105,3 +105,7 @@ dist
 
 # Vagrant
 .vagrant
+
+# Code editors
+.idea
+.swp
