@@ -194,10 +194,11 @@ Run **only one of the following** commands on the master node to setup pod netwo
 #### Calico
 Calico seemed to work better. 
 You have to make sure you initialize the master with the pod cidr block
-https://docs.projectcalico.org/v3.10/getting-started/kubernetes/
+https://docs.projectcalico.org/getting-started/kubernetes/quickstart
 
 ```bash
-# kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+# sudo kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
 ```
 
 #### Weave Net
