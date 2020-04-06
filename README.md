@@ -62,7 +62,12 @@ Using the repository method on CentOS 7
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 # sudo yum -y install docker-ce docker-ce-cli containerd.io
-# systemctl enable docker && systemctl start docker
+# sudo systemctl enable docker && sudo systemctl start docker
+```
+
+Verify docker installation
+```
+docker --version
 ```
 
 ## Kubernetes Installation
@@ -80,8 +85,8 @@ Master node must have the following requirements
 
 ### Disable Security
 ```bash
-# setenforce 0
-# systemctl disable firewalld && systemctl stop firewalld
+# sudo setenforce 0
+# sudo systemctl disable firewalld && sudo systemctl stop firewalld
 ```
 
 But this only disables it temporarily (until the next reboot). 
@@ -105,8 +110,8 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
 
 ### Install packages
 ```bash
-# yum install -y kubelet kubeadm kubectl kubernetes-cni
-# systemctl enable kubelet && systemctl start kubelet
+# sudo yum install -y kubelet kubeadm kubectl kubernetes-cni
+# sudo systemctl enable kubelet && sudo systemctl start kubelet
 ```
 
 * kubelet—The Kubernetes node agent, which will run everything for you
@@ -119,14 +124,14 @@ Enabling the net.bridge.bridge-nf-call-iptables kernel option
 I’ve noticed that something disables the bridge-nf-call-iptables kernel parameter, which is required for Kubernetes services to operate properly. To rectify the problem, you need to run the following two commands:
 
 ```bash
-# sysctl -w net.bridge.bridge-nf-call-iptables=1
+# sudo sysctl -w net.bridge.bridge-nf-call-iptables=1
 # echo "net.bridge.bridge-nf-call-iptables=1" > /etc/sysctl.d/k8s.conf
 ```
 
 ### Disable Swap
 
 ```bash
-# swapoff -a &&  sed -i '/ swap / s/^/#/' /etc/fstab
+# sudo swapoff -a && sudo sed -i '/ swap / s/^/#/' /etc/fstab
 ```
 
 ## Initialize Master
