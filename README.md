@@ -277,3 +277,15 @@ Also verify on master node that the worker node is ready
 # kubectl get nodes
 # kubectl get pods --all-namespaces
 ```
+
+## kubeadm join token expired
+
+Sample error message when joining with `--v=5`
+
+> [discovery] The cluster-info ConfigMap does not yet contain a JWS signature for token ID
+
+If you are trying to join the worker node with an expired token, you can run the following command on the master node to get a new token.
+
+```bash
+kubeadm token create
+```
